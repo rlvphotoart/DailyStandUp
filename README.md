@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Akkodis
 
 
@@ -91,3 +92,36 @@ For open source projects, say how it is licensed.
 
 ## Project status
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+=======
+# StandupLoop
+
+Daily standup tracker for Microsoft Teams — built with Next.js, Prisma, Neon Postgres, and NextAuth.
+
+## Quick Start
+
+See **DEPLOY.md** for the full deployment guide.
+
+```bash
+npm install
+cp .env.example .env.local  # fill in your values
+npx prisma migrate dev --name init
+npx ts-node --compiler-options '{"module":"CommonJS"}' prisma/seed.ts
+npm run dev
+```
+
+## Demo Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@loop.dev | admin123 |
+| Member | sam@loop.dev | pass123 |
+| Member | jordan@loop.dev | pass123 |
+| Member | mia@loop.dev | pass123 |
+
+## Stack
+
+- **Next.js 14** App Router + TypeScript
+- **Prisma** ORM → **Neon** Postgres (serverless)
+- **NextAuth** credentials auth + JWT sessions
+- **Tailwind CSS** + custom CSS variables
+>>>>>>> 317efc2 (Initial commit)

@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(MEMBER)
+  color     String   @default("#6c63ff")
+  createdAt DateTime @default(now())
+
+  tasks        Task[]    @relation("TaskAssignee")
+  createdTasks Task[]    @relation("TaskCreator")
+  blockers     Blocker[]
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?    @default("")
+  status      TaskStatus @default(PLANNED)
+  date        String
+  assigneeId  String
+  assignee    User       @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: Cascade)
+  createdById String
+  createdBy   User       @relation("TaskCreator", fields: [createdById], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum TaskStatus {
+  PLANNED
+  INPROGRESS
+  DONE
+  BLOCKED
+}
+
+model Blocker {
+  id            String        @id @default(cuid())
+  text          String
+  severity      Severity      @default(MED)
+  needsHelpFrom String?
+  status        BlockerStatus @default(OPEN)
+  date          String
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum Severity {
+  LOW
+  MED
+  HIGH
+}
+
+enum BlockerStatus {
+  OPEN
+  RESOLVED
+}
