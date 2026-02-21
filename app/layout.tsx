@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Sans, Syne, DM_Mono } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
+import { Analytics } from '@vercel/analytics/next';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const syne   = Syne({ subsets: ['latin'], variable: '--font-syne', weight: ['400','600','700','800'] });
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${dmSans.variable} ${syne.variable} ${dmMono.variable}`}>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
